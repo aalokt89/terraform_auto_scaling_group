@@ -1,3 +1,28 @@
+
+# remote backend vars
+#--------------------------------------
+variable "backend_bucket" {
+  type        = string
+  description = "Remote backend bucket name"
+  default     = "shoppr-tsftate-bucket"
+}
+variable "backend_bucket-key" {
+  type        = string
+  description = "Bucket path to store tfstate"
+  default     = "global/s3/terraform.tfstate"
+}
+variable "backend_bucket_region" {
+  type        = string
+  description = "Backend bucket region"
+  default     = "us-east-1"
+}
+variable "backend_dbtable" {
+  type        = string
+  description = "Backend dynamodb table name"
+  default     = "shoppr-tfstate-locking"
+}
+
+
 variable "environment" {
   type    = string
   default = "Dev"
