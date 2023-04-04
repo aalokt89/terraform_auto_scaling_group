@@ -68,21 +68,40 @@ variable "auto_ipv4" {
   default     = true
 }
 
-# NAT vars
-#----------------------------------------
-variable "nat_subnet" {
-  type        = string
-  description = "My IP address"
-  default     = "0.0.0.0/0"
-}
-
-
 # security group vars
 #----------------------------------------
 variable "ssh_location" {
   type        = string
   description = "My IP address"
   default     = "0.0.0.0/0"
+}
+
+# ec2 vars
+#----------------------------------------
+variable "web_server_name" {
+  type    = string
+  default = "web-server"
+}
+variable "web_server_ami" {
+  type        = string
+  description = "Instance AMI: Amazon Linux 2"
+  default     = "ami-04581fbf744a7d11f"
+}
+variable "web_server_type" {
+  type    = string
+  default = "t2.micro"
+}
+
+variable "key_pair" {
+  type        = string
+  description = "ec2 key pair"
+  default     = "webServer_key"
+}
+
+variable "user_data_file" {
+  type        = string
+  description = "user data file path"
+  default     = "install_httpd.sh"
 }
 
 # S3 vars
