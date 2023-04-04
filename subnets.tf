@@ -23,6 +23,6 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
 
   tags = {
-    Name = "${var.app_name}_${each.key}"
+    Name = "${var.app_name}-${each.key}"
   }
 }
