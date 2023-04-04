@@ -39,6 +39,12 @@ variable "all_traffic" {
   default     = "0.0.0.0/0"
 }
 
+variable "NAT_subnet" {
+  type        = string
+  description = "subnet location for NAT"
+  default     = "us"
+}
+
 # private subnet vars
 #----------------------------------------
 variable "private_subnets" {
@@ -61,6 +67,15 @@ variable "auto_ipv4" {
   description = "enable auto-assign ipv4"
   default     = true
 }
+
+# NAT vars
+#----------------------------------------
+variable "nat_subnet" {
+  type        = string
+  description = "My IP address"
+  default     = "0.0.0.0/0"
+}
+
 
 # security group vars
 #----------------------------------------
