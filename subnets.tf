@@ -10,7 +10,8 @@ resource "aws_subnet" "public_subnets" {
   map_public_ip_on_launch = var.auto_ipv4
 
   tags = {
-    Name = "${var.app_name}-${each.key}"
+    Name   = "${var.app_name}-${each.key}"
+    Subnet = "Public"
 
   }
 }
@@ -23,6 +24,7 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = tolist(data.aws_availability_zones.available.names)[each.value]
 
   tags = {
-    Name = "${var.app_name}-${each.key}"
+    Name   = "${var.app_name}-${each.key}"
+    Subnet = "Private"
   }
 }
