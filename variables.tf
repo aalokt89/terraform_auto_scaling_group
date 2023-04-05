@@ -115,3 +115,59 @@ variable "web_asg_capacity" {
     "desired" = 2
   }
 }
+
+# ALB vars
+#----------------------------------------
+variable "load_balancer_name" {
+  type        = string
+  description = "load balancer name"
+  default     = "web-alb"
+}
+
+variable "load_balancer_internal" {
+  type        = bool
+  description = "Is looad balancer internal facing?"
+  default     = false
+}
+
+variable "load_balancer_type" {
+  type        = string
+  description = "load balancer"
+  default     = "application"
+}
+
+# ALB target group vars
+#----------------------------------------
+variable "web_alb_tg_name" {
+  type        = string
+  description = "target group name"
+  default     = "web-server-tg"
+}
+variable "web_alb_tg_port" {
+  type        = number
+  description = "target group protocol"
+  default     = 80
+}
+variable "web_alb_tg_protocol" {
+  type        = string
+  description = "target group protocol"
+  default     = "HTTP"
+}
+
+# ALB listener group vars
+#----------------------------------------
+variable "web_alb_listener_port" {
+  type        = number
+  description = "listener port"
+  default     = 80
+}
+variable "web_alb_listener_protocol" {
+  type        = string
+  description = "listener protocol"
+  default     = "HTTP"
+}
+variable "web_alb_listener_action_type" {
+  type        = string
+  description = "listenr default action type"
+  default     = "forward"
+}
