@@ -6,7 +6,6 @@ resource "aws_security_group" "ssh_sg" {
   description = "Allow ssh"
   vpc_id      = aws_vpc.vpc.id
 
-  # ssh
   ingress {
     description = "ssh from IP"
     from_port   = 22
