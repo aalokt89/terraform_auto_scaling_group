@@ -104,31 +104,14 @@ variable "user_data_file" {
   default     = "install_httpd.sh"
 }
 
-# S3 vars
+# ASG vars
 #----------------------------------------
-variable "s3_name" {
-  type    = string
-  default = "remote-backend"
-}
-variable "s3_force_destroy" {
-  type    = bool
-  default = false
-}
-
-# S3 private
-variable "block_public_acls" {
-  type    = bool
-  default = true
-}
-variable "block_public_policy" {
-  type    = bool
-  default = true
-}
-variable "ignore_public_acls" {
-  type    = bool
-  default = true
-}
-variable "restrict_public_buckets" {
-  type    = bool
-  default = true
+variable "web_asg_capacity" {
+  type        = map(any)
+  description = "min, max, and desired instance capacity"
+  default = {
+    "min"     = 2
+    "max"     = 2
+    "desired" = 2
+  }
 }
