@@ -1,6 +1,3 @@
-# Auto scaling group
-#----------------------------------------
-
 # Get all public subnet ids
 data "aws_subnets" "public" {
   filter {
@@ -13,6 +10,8 @@ data "aws_subnets" "public" {
   }
 }
 
+# Auto scaling group
+#----------------------------------------
 resource "aws_autoscaling_group" "web_server_asg" {
   name                = "${var.app_name}-web-server-asg"
   min_size            = 2
@@ -24,7 +23,5 @@ resource "aws_autoscaling_group" "web_server_asg" {
     id      = aws_launch_template.web_server.id
     version = "$Latest"
   }
-
-
-
 }
+
