@@ -1,15 +1,3 @@
-# Get all public subnet ids
-data "aws_subnets" "public" {
-  filter {
-    name   = "vpc-id"
-    values = [aws_vpc.vpc.id]
-  }
-
-  tags = {
-    "Subnet" = "Public"
-  }
-}
-
 # Auto scaling group
 #----------------------------------------
 resource "aws_autoscaling_group" "web_server_asg" {
