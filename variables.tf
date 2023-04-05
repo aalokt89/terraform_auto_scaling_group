@@ -168,6 +168,6 @@ variable "web_alb_listener_protocol" {
 }
 variable "web_alb_listener_action_type" {
   type        = string
-  description = "listenr default action type"
+  description = "listener default action type"
   default     = "forward"
 }
