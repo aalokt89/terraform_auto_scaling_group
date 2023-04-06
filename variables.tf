@@ -133,9 +133,21 @@ variable "web_asg_capacity" {
   type        = map(any)
   description = "min, max, and desired instance capacity"
   default = {
-    "min"     = 2
-    "max"     = 5
-    "desired" = 2
+    "min" = 2
+    "max" = 5
+  }
+}
+variable "web_asg_health_check_type" {
+  type        = string
+  description = "health check type"
+  default     = "ELB"
+}
+variable "web_asg_scaling_policy" {
+  type        = map(any)
+  description = "scaling policy"
+  default = {
+    "metric_type"  = "ASGAverageCPUUtilization"
+    "target_value" = 75.0
   }
 }
 
