@@ -81,9 +81,17 @@ resource "aws_security_group" "alb_access_sg" {
 
   # http
   ingress {
-    description     = "allow traffic from alb sg"
+    description     = "allow http traffic from alb sg"
     from_port       = 80
     to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.web_access_sg.id]
+  }
+  # https
+  ingress {
+    description     = "allow https traffic from alb sg"
+    from_port       = 443
+    to_port         = 443
     protocol        = "tcp"
     security_groups = [aws_security_group.web_access_sg.id]
   }
