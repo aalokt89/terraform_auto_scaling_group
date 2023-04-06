@@ -161,36 +161,47 @@ variable "load_balancer_type" {
 
 # ALB target group vars
 #----------------------------------------
-variable "web_alb_tg_name" {
-  type        = string
-  description = "target group name"
-  default     = "web-server-tg"
+variable "web_alb_tg_http" {
+  type        = map(any)
+  description = "http target group vars"
+  default = {
+    "name"     = "web-server-tg-http"
+    "port"     = 80
+    "protocol" = "HTTP"
+
+  }
 }
-variable "web_alb_tg_port" {
-  type        = number
-  description = "target group protocol"
-  default     = 80
-}
-variable "web_alb_tg_protocol" {
-  type        = string
-  description = "target group protocol"
-  default     = "HTTP"
+
+variable "web_alb_tg_https" {
+  type        = map(any)
+  description = "https target group vars"
+  default = {
+    "name"     = "web-server-tg-https"
+    "port"     = 443
+    "protocol" = "HTTPS"
+
+  }
 }
 
 # ALB listener group vars
 #----------------------------------------
-variable "web_alb_listener_port" {
-  type        = number
-  description = "listener port"
-  default     = 80
+variable "web_alb_listener_http" {
+  type        = map(any)
+  description = "http listener vars"
+  default = {
+    "port"        = 80
+    "protocol"    = "HTTP"
+    "action_type" = "forward"
+  }
 }
-variable "web_alb_listener_protocol" {
-  type        = string
-  description = "listener protocol"
-  default     = "HTTP"
+
+variable "web_alb_listener_https" {
+  type        = map(any)
+  description = "https listener vars"
+  default = {
+    "port"        = 443
+    "protocol"    = "HTTPS"
+    "action_type" = "forward"
+  }
 }
-variable "web_alb_listener_action_type" {
-  type        = string
-  description = "listener default action type"
-  default     = "forward"
-}
+
