@@ -49,8 +49,8 @@ variable "NAT_subnet" {
 #----------------------------------------
 variable "private_subnets" {
   default = {
-    "private_subnet_1" = 0
-    "private_subnet_2" = 1
+    "private-subnet-1" = 0
+    "private-subnet-2" = 1
   }
 }
 
@@ -58,8 +58,8 @@ variable "private_subnets" {
 #----------------------------------------
 variable "public_subnets" {
   default = {
-    "public_subnet_1" = 0
-    "public_subnet_2" = 1
+    "public-subnet-1" = 0
+    "public-subnet-2" = 1
   }
 }
 variable "auto_ipv4" {
@@ -70,11 +70,34 @@ variable "auto_ipv4" {
 
 # security group vars
 #----------------------------------------
-variable "ssh_location" {
-  type        = string
-  description = "My IP address"
-  default     = "0.0.0.0/0"
+variable "ssh_sg" {
+  type        = map(any)
+  description = "ssh security group vars "
+  default = {
+    "cidr_block"            = "0.0.0.0/0"
+    "create_before_destroy" = true
+    "timeout_delete"        = "2m"
+  }
 }
+
+variable "web_access_sg" {
+  type        = map(any)
+  description = "web access security group vars "
+  default = {
+    "create_before_destroy" = true
+    "timeout_delete"        = "2m"
+  }
+}
+
+variable "alb_access_sg" {
+  type        = map(any)
+  description = "alb instance security group vars "
+  default = {
+    "create_before_destroy" = true
+    "timeout_delete"        = "2m"
+  }
+}
+
 
 # ec2 vars
 #----------------------------------------
@@ -111,7 +134,7 @@ variable "web_asg_capacity" {
   description = "min, max, and desired instance capacity"
   default = {
     "min"     = 2
-    "max"     = 2
+    "max"     = 5
     "desired" = 2
   }
 }
@@ -138,36 +161,47 @@ variable "load_balancer_type" {
 
 # ALB target group vars
 #----------------------------------------
-variable "web_alb_tg_name" {
-  type        = string
-  description = "target group name"
-  default     = "web-server-tg"
-}
-variable "web_alb_tg_port" {
-  type        = number
-  description = "target group protocol"
-  default     = 80
-}
-variable "web_alb_tg_protocol" {
-  type        = string
-  description = "target group protocol"
-  default     = "HTTP"
+variable "web_alb_tg_http" {
+  type        = map(any)
+  description = "http target group vars"
+  default = {
+    "name"     = "web-server-tg-http"
+    "port"     = 80
+    "protocol" = "HTTP"
+
+  }
 }
 
-# ALB listener group vars
+variable "web_alb_tg_https" {
+  type        = map(any)
+  description = "https target group vars"
+  default = {
+    "name"     = "web-server-tg-https"
+    "port"     = 443
+    "protocol" = "HTTPS"
+
+  }
+}
+
+# ALB listener vars
 #----------------------------------------
-variable "web_alb_listener_port" {
-  type        = number
-  description = "listener port"
-  default     = 80
+variable "web_alb_listener_http" {
+  type        = map(any)
+  description = "http listener vars"
+  default = {
+    "port"        = 80
+    "protocol"    = "HTTP"
+    "action_type" = "forward"
+  }
 }
-variable "web_alb_listener_protocol" {
-  type        = string
-  description = "listener protocol"
-  default     = "HTTP"
+
+variable "web_alb_listener_https" {
+  type        = map(any)
+  description = "https listener vars"
+  default = {
+    "port"        = 443
+    "protocol"    = "HTTPS"
+    "action_type" = "forward"
+  }
 }
-variable "web_alb_listener_action_type" {
-  type        = string
-  description = "listener default action type"
-  default     = "forward"
-}
+

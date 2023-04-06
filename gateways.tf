@@ -18,7 +18,7 @@ resource "aws_eip" "eip" {
 resource "aws_nat_gateway" "nat_gw" {
   depends_on    = [aws_internet_gateway.igw]
   allocation_id = aws_eip.eip.id
-  subnet_id     = aws_subnet.public_subnets["public_subnet_1"].id
+  subnet_id     = aws_subnet.public_subnets["public-subnet-1"].id
 
   tags = {
     Name = "${var.app_name}-nat"
