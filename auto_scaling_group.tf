@@ -2,7 +2,7 @@
 #----------------------------------------
 resource "aws_autoscaling_group" "web_server_asg" {
   depends_on          = [aws_subnet.public_subnets, aws_subnet.private_subnets, aws_lb.web_alb]
-  name                = "${var.app_name}-web-server-asg"
+  name                = "${var.app_name}-${var.web_server_name}-asg"
   min_size            = var.web_asg_capacity["min"]
   max_size            = var.web_asg_capacity["max"]
   vpc_zone_identifier = [for subnet in aws_subnet.private_subnets : subnet.id]
@@ -12,6 +12,18 @@ resource "aws_autoscaling_group" "web_server_asg" {
   launch_template {
     id      = aws_launch_template.web_server.id
     version = "$Latest"
+  }
+
+  lifecycle {
+    replace_triggered_by = [
+      aws_security_group.alb_access_sg.id, aws_security_group.ssh_sg.id
+    ]
+  }
+
+  tag {
+    key                 = "Name"
+    value               = "${var.app_name}-${var.web_server_name}-asg"
+    propagate_at_launch = true
   }
 }
 
