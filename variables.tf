@@ -146,6 +146,7 @@ variable "web_asg_scaling_policy" {
   type        = map(any)
   description = "scaling policy"
   default = {
+    "policy_type"  = "TargetTrackingScaling"
     "metric_type"  = "ASGAverageCPUUtilization"
     "target_value" = 75.0
   }
