@@ -49,8 +49,8 @@ variable "NAT_subnet" {
 #----------------------------------------
 variable "private_subnets" {
   default = {
-    "private_subnet_1" = 0
-    "private_subnet_2" = 1
+    "private-subnet-1" = 0
+    "private-subnet-2" = 1
   }
 }
 
@@ -58,8 +58,8 @@ variable "private_subnets" {
 #----------------------------------------
 variable "public_subnets" {
   default = {
-    "public_subnet_1" = 0
-    "public_subnet_2" = 1
+    "public-subnet-1" = 0
+    "public-subnet-2" = 1
   }
 }
 variable "auto_ipv4" {
@@ -134,7 +134,7 @@ variable "web_asg_capacity" {
   description = "min, max, and desired instance capacity"
   default = {
     "min"     = 2
-    "max"     = 2
+    "max"     = 5
     "desired" = 2
   }
 }
