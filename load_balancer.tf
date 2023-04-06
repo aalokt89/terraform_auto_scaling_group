@@ -13,25 +13,49 @@ resource "aws_lb" "web_alb" {
   }
 }
 
-# ALB target group
+# ALB target groups 
 #----------------------------------------
-resource "aws_lb_target_group" "web_alb_tg" {
+# HTTP
+resource "aws_lb_target_group" "web_alb_tg_http" {
   depends_on = [aws_lb.web_alb]
-  name       = "${var.app_name}-${var.load_balancer_name}-${var.web_alb_tg_name}"
-  port       = var.web_alb_tg_port
-  protocol   = var.web_alb_tg_protocol
+  name       = "${var.app_name}-${var.load_balancer_name}-${var.web_alb_tg_http["name"]}"
+  port       = var.web_alb_tg_http["port"]
+  protocol   = var.web_alb_tg_http["protocol"]
   vpc_id     = aws_vpc.vpc.id
 }
 
-# ALB listener
+# HTTPS
+resource "aws_lb_target_group" "web_alb_tg_https" {
+  depends_on = [aws_lb.web_alb]
+  name       = "${var.app_name}-${var.load_balancer_name}-${var.web_alb_tg_https["name"]}"
+  port       = var.web_alb_tg_https["port"]
+  protocol   = var.web_alb_tg_https["protocol"]
+  vpc_id     = aws_vpc.vpc.id
+}
+
+
+# ALB listeners
 #----------------------------------------
-resource "aws_lb_listener" "web_alb_listener" {
+# HTTP
+resource "aws_lb_listener" "web_alb_listener_http" {
   load_balancer_arn = aws_lb.web_alb.arn
-  port              = var.web_alb_listener_port
-  protocol          = var.web_alb_listener_protocol
+  port              = var.web_alb_listener_http["port"]
+  protocol          = var.web_alb_listener_http["protocol"]
 
   default_action {
-    type             = var.web_alb_listener_action_type
-    target_group_arn = aws_lb_target_group.web_alb_tg.arn
+    type             = var.web_alb_listener_http["action_type"]
+    target_group_arn = aws_lb_target_group.web_alb_tg_http.arn
+  }
+}
+
+# HTTPS
+resource "aws_lb_listener" "web_alb_listener_http" {
+  load_balancer_arn = aws_lb.web_alb.arn
+  port              = var.web_alb_listener_https["port"]
+  protocol          = var.web_alb_listener_https["protocol"]
+
+  default_action {
+    type             = var.web_alb_listener_http["action_type"]
+    target_group_arn = aws_lb_target_group.web_alb_tg_https.arn
   }
 }
