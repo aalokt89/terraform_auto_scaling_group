@@ -18,7 +18,7 @@ resource "aws_lb" "web_alb" {
 # HTTP
 resource "aws_lb_target_group" "web_alb_tg_http" {
   depends_on = [aws_lb.web_alb]
-  name       = "${var.app_name}-${var.load_balancer_name}-${var.web_alb_tg_http["name"]}"
+  name       = "${var.app_name}-${var.web_alb_tg_http["name"]}"
   port       = var.web_alb_tg_http["port"]
   protocol   = var.web_alb_tg_http["protocol"]
   vpc_id     = aws_vpc.vpc.id
@@ -27,7 +27,7 @@ resource "aws_lb_target_group" "web_alb_tg_http" {
 # HTTPS
 resource "aws_lb_target_group" "web_alb_tg_https" {
   depends_on = [aws_lb.web_alb]
-  name       = "${var.app_name}-${var.load_balancer_name}-${var.web_alb_tg_https["name"]}"
+  name       = "${var.app_name}-${var.web_alb_tg_https["name"]}"
   port       = var.web_alb_tg_https["port"]
   protocol   = var.web_alb_tg_https["protocol"]
   vpc_id     = aws_vpc.vpc.id
@@ -49,7 +49,7 @@ resource "aws_lb_listener" "web_alb_listener_http" {
 }
 
 # HTTPS
-resource "aws_lb_listener" "web_alb_listener_http" {
+resource "aws_lb_listener" "web_alb_listener_https" {
   load_balancer_arn = aws_lb.web_alb.arn
   port              = var.web_alb_listener_https["port"]
   protocol          = var.web_alb_listener_https["protocol"]
