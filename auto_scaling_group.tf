@@ -1,7 +1,7 @@
 # Auto scaling group
 #----------------------------------------
 resource "aws_autoscaling_group" "web_server_asg" {
-  depends_on          = [aws_subnet.public_subnets, aws_subnet.private_subnets]
+  depends_on          = [aws_subnet.public_subnets, aws_subnet.private_subnets, aws_lb.web_alb]
   name                = "${var.app_name}-web-server-asg"
   min_size            = var.web_asg_capacity["min"]
   max_size            = var.web_asg_capacity["max"]
