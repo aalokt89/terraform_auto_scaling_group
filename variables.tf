@@ -70,11 +70,34 @@ variable "auto_ipv4" {
 
 # security group vars
 #----------------------------------------
-variable "ssh_location" {
-  type        = string
-  description = "My IP address"
-  default     = "0.0.0.0/0"
+variable "ssh_sg" {
+  type        = map(any)
+  description = "ssh security group vars "
+  default = {
+    "cidr_block"            = "0.0.0.0/0"
+    "create_before_destroy" = true
+    "timeout_delete"        = "2m"
+  }
 }
+
+variable "web_access_sg" {
+  type        = map(any)
+  description = "web access security group vars "
+  default = {
+    "create_before_destroy" = true
+    "timeout_delete"        = "2m"
+  }
+}
+
+variable "alb_access_sg" {
+  type        = map(any)
+  description = "alb instance security group vars "
+  default = {
+    "create_before_destroy" = true
+    "timeout_delete"        = "2m"
+  }
+}
+
 
 # ec2 vars
 #----------------------------------------
