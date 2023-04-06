@@ -17,7 +17,6 @@ resource "aws_autoscaling_group" "web_server_asg" {
 
 # Scaling policy
 resource "aws_autoscaling_policy" "web_server_asg" {
-  depends_on             = [aws_autoscaling_group.web_server_asg]
   name                   = "${var.app_name}-asg-scaling-policy"
   policy_type            = var.web_asg_scaling_policy["policy_type"]
   autoscaling_group_name = aws_autoscaling_group.web_server_asg.name
