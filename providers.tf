@@ -32,3 +32,9 @@ provider "aws" {
 # Retrieve the list of AZs in the current AWS region
 data "aws_availability_zones" "available" {}
 data "aws_region" "current" {}
+
+resource "aws_subnet" "example" {
+  for_each          = data.aws_availability_zones.available
+  vpc_id            = aws_vpc.vpc.id
+  availability_zone = [each.value.name]
+}
