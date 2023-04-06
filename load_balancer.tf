@@ -24,14 +24,14 @@ resource "aws_lb_target_group" "web_alb_tg_http" {
   vpc_id     = aws_vpc.vpc.id
 }
 
-# HTTPS
-resource "aws_lb_target_group" "web_alb_tg_https" {
-  depends_on = [aws_lb.web_alb]
-  name       = "${var.app_name}-${var.web_alb_tg_https["name"]}"
-  port       = var.web_alb_tg_https["port"]
-  protocol   = var.web_alb_tg_https["protocol"]
-  vpc_id     = aws_vpc.vpc.id
-}
+# # HTTPS
+# resource "aws_lb_target_group" "web_alb_tg_https" {
+#   depends_on = [aws_lb.web_alb]
+#   name       = "${var.app_name}-${var.web_alb_tg_https["name"]}"
+#   port       = var.web_alb_tg_https["port"]
+#   protocol   = var.web_alb_tg_https["protocol"]
+#   vpc_id     = aws_vpc.vpc.id
+# }
 
 
 # ALB listeners
@@ -48,14 +48,14 @@ resource "aws_lb_listener" "web_alb_listener_http" {
   }
 }
 
-# HTTPS
-resource "aws_lb_listener" "web_alb_listener_https" {
-  load_balancer_arn = aws_lb.web_alb.arn
-  port              = var.web_alb_listener_https["port"]
-  protocol          = var.web_alb_listener_https["protocol"]
+# # HTTPS
+# resource "aws_lb_listener" "web_alb_listener_https" {
+#   load_balancer_arn = aws_lb.web_alb.arn
+#   port              = var.web_alb_listener_https["port"]
+#   protocol          = var.web_alb_listener_https["protocol"]
 
-  default_action {
-    type             = var.web_alb_listener_http["action_type"]
-    target_group_arn = aws_lb_target_group.web_alb_tg_https.arn
-  }
-}
+#   default_action {
+#     type             = var.web_alb_listener_http["action_type"]
+#     target_group_arn = aws_lb_target_group.web_alb_tg_https.arn
+#   }
+# }
