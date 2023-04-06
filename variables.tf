@@ -183,7 +183,7 @@ variable "web_alb_tg_https" {
   }
 }
 
-# ALB listener group vars
+# ALB listener vars
 #----------------------------------------
 variable "web_alb_listener_http" {
   type        = map(any)
