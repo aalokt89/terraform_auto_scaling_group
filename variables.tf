@@ -134,7 +134,7 @@ variable "web_asg_capacity" {
   description = "min, max, and desired instance capacity"
   default = {
     "min" = 2
-    "max" = 6
+    "max" = 5
   }
 }
 variable "web_asg_health_check_type" {
