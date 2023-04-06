@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "web_server_asg" {
   max_size            = var.web_asg_capacity["max"]
   desired_capacity    = var.web_asg_capacity["desired"]
   vpc_zone_identifier = [for subnet in aws_subnet.private_subnets : subnet.id]
-  target_group_arns   = [aws_lb_target_group.web_alb_tg_http.arn, aws_lb_target_group.web_alb_tg_https.arn]
+  target_group_arns   = [aws_lb_target_group.web_alb_tg_http.arn]
 
   launch_template {
     id      = aws_launch_template.web_server.id
